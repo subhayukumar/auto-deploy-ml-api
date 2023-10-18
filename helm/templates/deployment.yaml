@@ -22,6 +22,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.containerPort }}
+              protocol: TCP
           env:
             - name: MODEL_URL
               value: "{{ .Values.modelUrl }}"
+      dnsPolicy: ClusterFirst
