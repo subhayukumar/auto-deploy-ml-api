@@ -1,0 +1,9 @@
+apiVersion: v2
+name: survivor-predictor
+description: A Helm chart for deploying an ML app
+version: 0.1.0
+appVersion: 1.0.0
+
+maintainers:
+  - email: subhayu.kumar@fiftyfivetech.io
+    name: Subhayu Kumar Bala

@@ -1,0 +1,8 @@
+replicaCount: 1
+image:
+  repository: subhayu99/demo-ml-flask
+  tag: latest
+  pullPolicy: IfNotPresent
+modelUrl: ""
+servicePort: 80
+containerPort: 8080
