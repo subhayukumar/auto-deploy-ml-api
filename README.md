@@ -55,7 +55,7 @@ To run the Helm chart with custom values, you can use the `--set` flag with the 
 helm install myapp-release ./myapp-chart --set service.port=8000 --set image.repository=your-username/your-image-name --set image.tag=your-tag --set modelUrl=your-model-url
 ```
 
-Ensure that you replace the placeholder `your-model-url` with the URL of your externally hosted model. You can modify other parameters as necessary according to your use case.
+Ensure that you replace the placeholders `your-model-url`, `your-username/your-image-name`, and `your-tag` with the URL of your externally hosted model. You can modify other parameters as necessary according to your use case.
 
 You can customize the deployment further by adjusting other parameters available in the `values.yaml` file in the Helm chart directory.
 
