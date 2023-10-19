@@ -4,11 +4,11 @@ metadata:
   name: {{ include "ml-app.fullname" . }}
   labels:
     name: {{ include "ml-app.name" . }}
-    instance: {{ .Release.Name }}
+    release: {{ .Release.Name }}
 spec:
   selector:
     name: {{ include "ml-app.name" . }}
-    instance: {{ .Release.Name }}
+    release: {{ .Release.Name }}
   ports:
     - protocol: TCP
       port: {{ .Values.servicePort }}

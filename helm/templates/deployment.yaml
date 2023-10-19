@@ -4,18 +4,18 @@ metadata:
   name: {{ include "ml-app.fullname" . }}
   labels:
     name: {{ include "ml-app.name" . }}
-    instance: {{ .Release.Name }}
+    release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       name: {{ include "ml-app.name" . }}
-      instance: {{ .Release.Name }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
         name: {{ include "ml-app.name" . }}
-        instance: {{ .Release.Name }}
+        release: {{ .Release.Name }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

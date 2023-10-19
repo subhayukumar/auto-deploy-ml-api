@@ -14,26 +14,38 @@ This project demonstrates a simple approach to deploying machine learning models
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/subhayukumar/auto-deploy-ml-api.git
-   cd auto-deploy-ml-api
    ```
 
-2. **Build the Docker Image:**
+2. **Copy the `helm` chart and `Dockerfile` files to your project.**
+   ```bash
+   cp -r auto-deploy-ml-api/helm /path/to/your/project
+   cp -r auto-deploy-ml-api/Dockerfile /path/to/your/project
+   cd /path/to/your/project
+   ```
+
+3. **Edit the Dockerfile to work with your environment app**
+
+4. **Build and Tag the Docker Image:**
    ```bash
    docker build -t your-image-name .
+   docker tag your-image-name:your-tag your-username/your-image-name:your-tag
    ```
 
-3. **Push the Docker Image to a Container Registry:**
+5. **Push the Docker Image to a Container Registry:**
    ```bash
-   docker push your-image-name:your-tag
+   docker push your-username/your-image-name:your-tag # pushes the image to dockerhub
    ```
 
-4. **Deploy the Helm Chart:**
+6. **Deploy the Helm Chart:**
    ```bash
-   helm install myapp-release ./myapp-chart
+   helm install release-name ./helm --set service.port=8000 --set image.repository=your-username/your-image-name --set image.tag=your-tag
    ```
 
-5. **Access the API:**
-   Once the Helm chart is deployed successfully, you can access the API using the NodePort or LoadBalancer IP address, depending on your setup.
+7. **Access the API:**
+   Run the below command by replacing `[release-name]` with the name of your Helm release to get the URL of the deployed API:
+   ```bash
+   kubectl get service -l name=ml-app -l release=[release-name] -o=jsonpath='http://{.items[0].status.loadBalancer.ingress[0].ip}:{.items[0].spec.ports[0].port}/ '
+   ```
 
 ## Using an External Model
 
@@ -52,10 +64,10 @@ By following these steps, you can seamlessly integrate an externally hosted mach
 To run the Helm chart with custom values, you can use the `--set` flag with the `helm install` or `helm upgrade` command. Here's an example of how to deploy the Helm chart with custom values:
 
 ```bash
-helm install myapp-release ./myapp-chart --set service.port=8000 --set image.repository=your-username/your-image-name --set image.tag=your-tag --set modelUrl=your-model-url
+helm install myapp-release ./myapp-chart --set modelUrl=your-model-url
 ```
 
-Ensure that you replace the placeholders `your-username/your-image-name`, `your-tag`, and `your-model-url` with the URL of your externally hosted model. You can modify other parameters as necessary according to your use case.
+Ensure that you replace the placeholders `your-model-url` with the URL of your externally hosted model. You can modify other parameters as necessary according to your use case.
 
 You can customize the deployment further by adjusting other parameters available in the `values.yaml` file in the Helm chart directory.
 
